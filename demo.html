@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<title>BOINC Project Statistics</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="shortcut icon" href="/favicon.gif" type="image/gif">
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<script type="text/javascript" src="../../dojox/mobile/deviceTheme.js"></script>
+	<style type="text/css">
+		/* for 13px on holodark as well */
+		.mblBlueButton, .mblRedButton {
+			font-size: 13px;
+		}
+		/* selector, we can do better?*/
+		html * {
+			-webkit-user-select: none;
+			outline: none;
+		}
+		body { -ms-touch-action: none; }
+
+		html,body {
+			height: 100%;
+		}
+		.viewGraph {
+			min-height: 100%;
+		}
+	</style>
+	<script type="text/javascript" src="../../dojo/dojo.js" data-dojo-config="parseOnLoad:true, async:true, mblAlwaysHideAddressBar: true, mblAlwaysResizeOnTransition: true, canvasEvents:false"></script>
+	<script type="text/javascript" src="src.js" charset="utf-8"></script>
+</head>
+<body style="visibility:hidden;">
+
+	<div id="viewProjects" data-dojo-type="dojox/mobile/View" selected="true">
+		<h1 data-dojo-type="dojox/mobile/Heading">BOINC Project Statistics</h1>
+		<h2 data-dojo-type="dojox/mobile/RoundRectCategory">Choose a project:</h2>
+
+	</div>
+
+
+	<div id="viewGraph" data-dojo-type="dojox/mobile/View">
+
+		<h1 id="viewGrapHead" data-dojo-type="dojox/mobile/Heading" back="Back" moveTo="viewProjects">Loading...</h1>
+
+		<div data-dojo-type="dojox/mobile/RoundRect" id="containerViewGraph" style="padding:10px;display: none;overflow: hidden;">
+
+			<button data-show-range="90" data-dojo-type="dojox/mobile/Button" class="showRange mblBlueButton" style="width: 40px; height: 27px;" id="zoomButtonNew1">3m</button>
+			<button data-show-range="180" data-dojo-type="dojox/mobile/Button" class="showRange mblBlueButton" style="width: 40px; height: 27px;" id="zoomButtonNew2">6m</button>
+			<button data-show-range="365" data-dojo-type="dojox/mobile/Button" class="showRange mblBlueButton" style="width: 40px; height: 27px;" id="zoomButtonNew3">1y</button>
+
+			<button data-dojo-type="dojox/mobile/Button" class="mblRedButton" id="indicatorModeNew" duration="0" style="width: 99px; height: 27px;">Touch Mode</button>
+
+			<div id="newChart"></div>
+
+		</div>
+
+		<div id="touchLabelNew"
+			style="display: none; background-color: white; border: 1px solid #333333; position: absolute; top: 150px; left: 80px; right: 80px; text-align: center; font-size: 16pt; font-weight: bolder; color: #333333; margin-left:80px;"></div>
+
+		<div style="display: none;" id="helpBoxNew" data-dojo-type="dojox/mobile/RoundRect">
+			<img src="resources/images/a-icon-12.png"
+				style="vertical-align: middle;" /><b>Chart Interactions</b><br />
+			<b>Double-tap</b>: Zoom / Unzoom.<br />
+			<b>Chart Touch</b>: Slide visible data range or show data indicator.
+			(click &laquo;Touch Mode&raquo; button to alternate).<br />
+			<b>Wide-Screen View</b>: Flip the screen horizontally.
+		</div>
+
+
+	</div>
+
+</body>
+</html>
