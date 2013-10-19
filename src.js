@@ -55,7 +55,6 @@ require([
 
 
     var resize = function () {
-console.log('resize');
 
         var viewGraph = dom.byId('viewGraph');
         if (viewGraph.style.visibility==='hidden' || viewGraph.style.display==='none') {
@@ -63,11 +62,6 @@ console.log('resize');
             return;
         }
         var wsize = mobile.getScreenSize();
-
-        console.log('wsize');
-        console.log(wsize);
-        console.log('pHeight');
-        console.log(pHeight);
 
         // needed for IE, because was overriden to 0 at some point
         if (has('ie')) {
@@ -101,9 +95,6 @@ console.log('resize');
 
 
     var showViewGraph = function () {
-
-        console.log('showViewGraph');
-        console.log('selectedProject='+selectedProject);
 
         graphToggler.show();
 
@@ -292,7 +283,7 @@ console.log('resize');
             timeout: 5000,
             load: function (projects) {
 
-                console.log('load projects callback, do postprocessing here...');
+                // console.log('load projects callback, do postprocessing here...');
             },
             error: function (error) {
 
