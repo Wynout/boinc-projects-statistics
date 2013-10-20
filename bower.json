@@ -6,6 +6,6 @@
     "jquery": "latest",
     "jquery-mobile": "latest",
     "backbone-amd": "latest",
-    "underscore-amd": "latest"
+    "lodash": "latest"
   }
 }
