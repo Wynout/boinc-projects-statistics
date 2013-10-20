@@ -1,0 +1,11 @@
+{
+  "name": "RequireJS Starter",
+  "version": "1.0.0",
+  "dependencies": {
+    "requirejs": "latest",
+    "jquery": "latest",
+    "jquery-mobile": "latest",
+    "backbone-amd": "latest",
+    "underscore-amd": "latest"
+  }
+}
