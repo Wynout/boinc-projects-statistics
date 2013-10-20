@@ -8,7 +8,7 @@ window.App = {
 
 var customClaroTheme, timeLabelFunction, yLabelFunction;
 
-require([
+declare([
     'dojo/ready',
     'dojo/sniff', // ua sniffing
     'dojo/on',
