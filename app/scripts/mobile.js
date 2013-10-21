@@ -26,19 +26,77 @@ require.config( {
 // Includes File Dependencies
 require([ "jquery", "backbone", "routers/mobileRouter" ], function( $, Backbone, Mobile ) {
 
-	$( document ).on( "mobileinit",
-		// Set up the "mobileinit" handler before requiring jQuery Mobile's module
-		function() {
-			// Prevents all anchor click handling including the addition of active button state and alternate link bluring.
-			$.mobile.linkBindingEnabled = false;
+    $( document ).on( "mobileinit",
+        // Set up the "mobileinit" handler before requiring jQuery Mobile's module
+        function () {
 
-			// Disabling this will prevent jQuery Mobile from handling hash changes
-			$.mobile.hashListeningEnabled = false;
-		}
-	);
+            $.mobile.defaultPageTransition = 'slide';
+            // $.mobile.pushStateEnabled = false;
+            $.support.cors = true;
+            $.mobile.allowCrossDomainPages = true;
+            $.mobile.buttonMarkup.hoverDelay = 0;
+            // https://github.com/davidcalhoun/energize.js
 
-	require( [ "jquerymobile" ], function() {
-		// Instantiates a new Backbone.js Mobile Router
-		this.router = new Mobile();
-	});
+            // Prevents all anchor click handling including the addition of active button state and alternate link bluring.
+            $.mobile.linkBindingEnabled = false;
+
+            // Disabling this will prevent jQuery Mobile from handling hash changes
+            $.mobile.hashListeningEnabled = false;
+
+            $.mobile.changePage.defaults.transition = 'slide';
+            $.mobile.changePage.defaults.reverse = true;
+
+
+            var defaults = $.mobile.changePage.defaults;
+            $(document).on('click', 'a[data-rel="back"]', function (event) {
+
+                // event.preventDefault();
+                var $this = $(this);
+
+                if ($this.attr('data-transition')) {
+
+                    $.mobile.changePage.defaults.transition = $this.attr('data-transition');
+                } else {
+
+                    $.mobile.changePage.defaults.transition = defaults.transition;
+                }
+
+                if ($this.attr('data-direction')) {
+
+                    $.mobile.changePage.defaults.reverse = $this.attr('data-direction') == 'reverse';
+                } else {
+
+                    $.mobile.changePage.defaults.reverse = false;
+                }
+
+                $.mobile.changePage($this.attr('href'));
+                // window.history.back();
+                // return false;
+            });
+
+        }
+    );
+
+    require( [ "jquerymobile" ], function () {
+
+        // Instantiates a new Backbone.js Mobile Router
+        this.router = new Mobile();
+    });
+
+
+      $(document).ready(function () {
+
+
+
+            // $(document).on('click', 'a[data-rel="back"]', function(e) {
+            //     console.log(e);
+            //     var defs = $.mobile.changePage.defaults;
+            //     console.log(defs);
+            //     // e.preventDefault();
+            //     // $.mobile.changePage( "#", { reverse: true, changeHash: true } );
+            //     return false;
+            // });
+      });
+
+
 } );

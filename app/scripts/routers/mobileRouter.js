@@ -45,7 +45,7 @@ function ( $, Backbone, CategoryModel, CategoriesCollection, CategoryView ) {
         home: function() {
 
             // Programatically changes to the categories page
-            $.mobile.changePage( "#categories" , { reverse: false, changeHash: false } );
+            $.mobile.changePage( "#categories" , { reverse: false, changeHash: true } );
 
         },
 
@@ -65,7 +65,7 @@ function ( $, Backbone, CategoryModel, CategoriesCollection, CategoryView ) {
                 currentView.collection.fetch().done( function() {
 
                     // Programatically changes to the current categories page
-                    $.mobile.changePage( "#" + type, { reverse: false, changeHash: false } );
+                    $.mobile.changePage( "#" + type, { reverse: false, changeHash: true } );
 
                 } );
 
@@ -75,7 +75,7 @@ function ( $, Backbone, CategoryModel, CategoriesCollection, CategoryView ) {
             else {
 
                 // Programatically changes to the current categories page
-                $.mobile.changePage( "#" + type, { reverse: false, changeHash: false } );
+                $.mobile.changePage( "#" + type, { reverse: false, changeHash: true } );
 
             }
 
