@@ -8,11 +8,11 @@ define(["jquery", "backbone", "models/ProjectModel"], function ($, Backbone, Pro
     var ProjectView = Backbone.View.extend( {
 
         // The View Constructor
-        initialize: function() {
+        initialize: function () {
 
-            // The render method is called when Category Models are added to the Collection
-            this.collection.on( "added", this.render, this );
-
+            this.collection.on("add", this.render, this);
+            // this.collection.on("remove", this.removeBook, this);
+            // this.collection.on("reset", this.render, this);
         },
 
         // Renders all of the Project models on the UI
@@ -22,16 +22,16 @@ define(["jquery", "backbone", "models/ProjectModel"], function ($, Backbone, Pro
             this.template = _.template( $( "script#projectItems" ).html(), { "collection": this.collection } );
 
             // Renders the view's template inside of the current listview element
-            this.$el.find("ul").html(this.template);
+            this.$el.find("ul").html(this.template)
+                // Updating lists If you add items to a listview, you'll need to call the refresh() method on it to update the styles and create any nested lists that are added. For example:
+                .listview('refresh');
 
             // Maintains chainability
             return this;
-
         }
 
-    } );
+    });
 
     // Returns the View class
     return ProjectView;
-
-} );
+});
