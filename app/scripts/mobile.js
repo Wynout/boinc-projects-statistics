@@ -8,7 +8,8 @@ require.config( {
             "jquery": "vendor/jquery/jquery",
             "jquerymobile": "vendor/jquery-mobile/jquery.mobile-1.3.2",
             "underscore": "vendor/lodash/dist/lodash",
-            "backbone": "vendor/backbone-amd/backbone"
+            "backbone": "vendor/backbone-amd/backbone",
+            "highcharts": "vendor/highcharts/js/highcharts.src"
       },
 
       // Sets the configuration for your third party scripts that are not AMD compatible
@@ -17,6 +18,9 @@ require.config( {
             "backbone": {
                   "deps": [ "underscore", "jquery" ],
                   "exports": "Backbone"  //attaches "Backbone" to the window object
+            },
+            'highcharts': {
+                "exports": 'Highcharts'
             }
 
       } // end Shim Configuration
@@ -86,7 +90,7 @@ require([ "jquery", "backbone", "routers/mobileRouter" ], function( $, Backbone,
 
 // Swipe
 $( document ).on( "pageinit", "[data-role='page']", function() {
-console.log('swipe');
+
     var page = "#" + $( this ).attr( "id" ),
     // Get the filename of the next page that we stored in the data-next attribute
     next = $( this ).jqmData( "next" ),
@@ -113,7 +117,7 @@ console.log('swipe');
     }
     // The same for the previous page (we set data-dom-cache="true" so there is no need to prefetch)
     if ( prev ) {
-        console.log(prev);
+
         $( document ).on( "swiperight", page, function() {
             $.mobile.changePage( prev, { transition: "slide", reverse: true } );
         });

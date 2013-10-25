@@ -1,8 +1,8 @@
-// Projects Collection
+// TotalUserRacHistory Collection
 // ===================
 
 // Includes file dependencies
-define(["jquery", "backbone", "models/ProjectModel"], function ($, Backbone, ProjectModel) {
+define(["jquery", "backbone", "models/TotalUserRacHistoryModel"], function ($, Backbone, TotalUserRacHistoryModel) {
 
     // Extends Backbone.Router
     var Collection = Backbone.Collection.extend( {
@@ -16,8 +16,9 @@ define(["jquery", "backbone", "models/ProjectModel"], function ($, Backbone, Pro
         },
 
         // Sets the Collection model property to be a Category Model
-        model: ProjectModel,
-        url: 'http://bps-api.wynout.nl/projects'
+        model: TotalUserRacHistoryModel,
+        // url: 'http://bps-api.wynout.nl/project/total/user/rac/histories'
+        url: 'http://boinc-backend.dev/project/total/user/rac/histories'
 
     } );
 

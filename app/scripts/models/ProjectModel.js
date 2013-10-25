@@ -5,12 +5,10 @@
 define(["jquery", "backbone"], function ($, Backbone) {
 
     // The Model constructor
-    var Model = Backbone.Model.extend({
+    var ProjectModel = Backbone.Model.extend({
 
 		urlRoot: 'http://bps-api.wynout.nl/projects'
     });
 
-    // Returns the Model class
-    return Model;
-
+    return ProjectModel;
 });
