@@ -42,7 +42,6 @@ function ($, Backbone, Highcharts, DefaultOptions) {
 
             this.options = $.extend(true, DefaultOptions, this.customOptions); // DefaultOptions
             this.options.chart.renderTo = this.$el.attr('id');
-            this.model.bind('change', this.render, this);
         },
 
 
@@ -61,7 +60,6 @@ function ($, Backbone, Highcharts, DefaultOptions) {
             this.chart = new Highcharts.Chart(this.options);
             return this;
         }
-
     });
 
     return ChartView;
