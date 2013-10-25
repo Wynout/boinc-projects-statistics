@@ -11,9 +11,9 @@ require.config({
             // Core Libraries
             'jquery': 'vendor/jquery/jquery',
             'jquerymobile': 'vendor/jquery-mobile/jquery.mobile-1.3.2',
-            'underscore': 'vendor/lodash/dist/lodash',
+            'underscore': 'vendor/lodash/lodash',
             'backbone': 'vendor/backbone-amd/backbone',
-            'highcharts': 'vendor/highcharts/js/highcharts.src'
+            'highcharts': 'vendor/highcharts/highcharts'
       },
 
       // Sets the configuration for your third party scripts that are not AMD compatible
