@@ -1,13 +1,14 @@
 /*
 |--------------------------------------------------------------------------
-| Project Model                              app/scripts/views/ChartView.js
+| Project Model                          app/scripts/models/ProjectModel.js
 |--------------------------------------------------------------------------
 */
-define(['jquery', 'backbone'], function ($, Backbone) {
+define(['jquery', 'backbone', 'cachingsync'], function ($, Backbone, CachingSync) {
 
     var ProjectModel = Backbone.Model.extend({
 
-		urlRoot: 'http://bps-api.wynout.nl/projects'
+		urlRoot: 'http://bps-api.wynout.nl/projects',
+		sync: Backbone.cachingSync(Backbone.sync, 'ProjectModel'),
     });
     return ProjectModel;
 });

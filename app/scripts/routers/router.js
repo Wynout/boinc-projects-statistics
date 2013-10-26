@@ -6,6 +6,7 @@
 define([
     'jquery',
     'backbone',
+    'cachingsync',
 
     '../models/ProjectModel',
     '../collections/ProjectsCollection',
@@ -16,8 +17,9 @@ define([
     '../views/ChartView'
     ],
 
-function ($, Backbone, ProjectModel, ProjectsCollection,
+function ($, Backbone, CachingSync, ProjectModel, ProjectsCollection,
     ProjectView, TotalUserRacHistoryModel, TotalUserRacHistoriesCollection, ChartView) {
+
 
     var Router = Backbone.Router.extend( {
 
@@ -25,10 +27,9 @@ function ($, Backbone, ProjectModel, ProjectsCollection,
         initialize: function() {
 
             // Instantiates a new Projects List View
-            this.projectsView = new ProjectView({
-                el: '#projects',
-                collection: new ProjectsCollection()
-            });
+            App.Collections.Projects = new ProjectsCollection();
+            App.Collections.TotalUserRacHistories = new TotalUserRacHistoriesCollection();
+            App.Views.Projects = new ProjectView({el: '#projects', collection: App.Collections.Projects});
 
             // Tells Backbone to start watching for hashchange events
             Backbone.history.start();
@@ -48,11 +49,9 @@ function ($, Backbone, ProjectModel, ProjectsCollection,
         // Chart #project/:id/total/user/rac/history
         totalUserRacHistories: function (id) {
 
-            var model      = new TotalUserRacHistoryModel({id: id});
-            var view       = new ChartView({id: 'totalUserRacHistoriesGraph', model: model});
-            var collection = new TotalUserRacHistoriesCollection([model]);
+            App.Collections.TotalUserRacHistories.fetch().then(function () {
 
-            var result = model.fetch().then(function (response) {
+                var view  = new ChartView({id: 'totalUserRacHistoriesGraph', model: App.Collections.TotalUserRacHistories.get(id)});
 
                 $.mobile.changePage('#totalUserRacHistories', {reverse: false, changeHash: true});
                 view.render();
@@ -69,7 +68,7 @@ function ($, Backbone, ProjectModel, ProjectsCollection,
 
             $.mobile.loading( 'show' );
 
-            this.projectsView.collection.fetch().then(function () {
+            App.Collections.Projects.fetch().then(function () {
 
                 $.mobile.loading( 'hide' );
             });

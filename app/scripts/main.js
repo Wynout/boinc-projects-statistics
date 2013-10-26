@@ -13,7 +13,9 @@ require.config({
             'jquerymobile': 'vendor/jquery-mobile/jquery.mobile-1.3.2',
             'underscore': 'vendor/lodash/lodash',
             'backbone': 'vendor/backbone-amd/backbone',
-            'highcharts': 'vendor/highcharts/highcharts'
+            'highcharts': 'vendor/highcharts/highcharts',
+            'burry': 'vendor/backbone-caching-sync/burry',
+            'cachingsync': 'vendor/backbone-caching-sync/backbone.cachingsync'
       },
 
       // Sets the configuration for your third party scripts that are not AMD compatible
@@ -29,6 +31,22 @@ require.config({
       }
 });
 
+
+(function() {
+
+    window.App = {
+        Models: {},
+        Collections: {},
+        Views: {},
+        Router: {}
+    };
+
+    /*window.vent = _.extend({}, Backbone.Events);
+    window.template = function(id) {
+        return _.template( $('#' + id).html() );
+    };*/
+
+})();
 
 /*
 |--------------------------------------------------------------------------
@@ -95,7 +113,8 @@ require(['jquery','backbone','routers/router'], function ($, Backbone, Router) {
     require([ 'jquerymobile' ], function () {
 
         // Instantiates a new Backbone.js Router
-        this.router = new Router();
+        App.router =  new Router();
+        // this.router = new Router();
     });
 
 
