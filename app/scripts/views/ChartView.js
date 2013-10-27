@@ -3,7 +3,10 @@
 | TotalUserRacHistory Chart View             app/scripts/views/ChartView.js
 |--------------------------------------------------------------------------
 */
-define(['jquery', 'backbone', 'highcharts', 'charts/timeSeriesZoomableDefaultOptions'],
+define(['jquery', 'backbone', 'highcharts',
+    'charts/timeSeriesZoomableDefaultOptions',
+    'highcharts-theme'
+    ],
 function ($, Backbone, Highcharts, DefaultOptions) {
 
     var ChartView = Backbone.View.extend({
@@ -20,12 +23,12 @@ function ($, Backbone, Highcharts, DefaultOptions) {
             },
             xAxis: {
                 title: {
-                    text: 'text'
+                    // text: 'text'
                 }
             },
             yAxis: {
                 title: {
-                    text: 'yAxis title'
+                    text: 'Recent granted credits'
                 }
             },
             tooltip: {},
@@ -33,7 +36,7 @@ function ($, Backbone, Highcharts, DefaultOptions) {
             plotOptions: {},
             series: [{
                 type: 'area',
-                name: 'Series name',
+                name: 'credits',
             }]
         },
 
@@ -42,22 +45,25 @@ function ($, Backbone, Highcharts, DefaultOptions) {
 
             this.options = $.extend(true, DefaultOptions, this.customOptions); // DefaultOptions
             this.options.chart.renderTo = this.$el.attr('id');
+
+            // this.collection.on('add', this.render, this)
         },
 
 
         // Renders Chart, this refers to the view
         render: function (model) {
 
-            // Destroy previous chart
-            if (this.Chart) {
+            var project = this.model.get('project');
+            this.options.title.text = 'Sum of User RAC for ' + project.name;
+            $('#totalUserRacHistories h1').text(project.name);
 
-                this.Chart.destroy();
-            }
+
             // Assume model-based series
             this.options.series[0].pointStart = this.model.get('start_timestamp')*1000;
             this.options.series[0].data = this.model.get('data');
 
             this.chart = new Highcharts.Chart(this.options);
+
             return this;
         }
     });

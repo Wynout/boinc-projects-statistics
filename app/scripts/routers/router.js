@@ -8,17 +8,15 @@ define([
     'backbone',
     'cachingsync',
 
-    '../models/ProjectModel',
     '../collections/ProjectsCollection',
     '../views/ProjectView',
 
-    '../models/TotalUserRacHistoryModel',
     '../collections/TotalUserRacHistoriesCollection',
     '../views/ChartView'
     ],
 
-function ($, Backbone, CachingSync, ProjectModel, ProjectsCollection,
-    ProjectView, TotalUserRacHistoryModel, TotalUserRacHistoriesCollection, ChartView) {
+function ($, Backbone, CachingSync, ProjectsCollection,
+    ProjectView, TotalUserRacHistoriesCollection, ChartView) {
 
 
     var Router = Backbone.Router.extend( {
@@ -30,6 +28,20 @@ function ($, Backbone, CachingSync, ProjectModel, ProjectsCollection,
             App.Collections.Projects = new ProjectsCollection();
             App.Collections.TotalUserRacHistories = new TotalUserRacHistoriesCollection();
             App.Views.Projects = new ProjectView({el: '#projects', collection: App.Collections.Projects});
+            App.Views.TotalUserRacHistories = new ChartView({id: 'totalUserRacHistoriesGraph'});
+
+
+            $('#totalUserRacHistories').on('pagehide', function (e, data) {
+
+                console.log('pagehide complete!');
+            });
+
+            $('#totalUserRacHistories').on('pageshow', function (e, data) {
+
+                console.log('pageshow');
+                App.Views.TotalUserRacHistories.render();
+            });
+
 
             // Tells Backbone to start watching for hashchange events
             Backbone.history.start();
@@ -51,10 +63,8 @@ function ($, Backbone, CachingSync, ProjectModel, ProjectsCollection,
 
             App.Collections.TotalUserRacHistories.fetch().then(function () {
 
-                var view  = new ChartView({id: 'totalUserRacHistoriesGraph', model: App.Collections.TotalUserRacHistories.get(id)});
-
+                App.Views.TotalUserRacHistories.model = App.Collections.TotalUserRacHistories.get(id);
                 $.mobile.changePage('#totalUserRacHistories', {reverse: false, changeHash: true});
-                view.render();
 
             }, function (error) {
 

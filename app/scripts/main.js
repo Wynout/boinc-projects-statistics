@@ -15,17 +15,23 @@ require.config({
             'backbone': 'vendor/backbone-amd/backbone',
             'highcharts': 'vendor/highcharts/highcharts',
             'burry': 'vendor/backbone-caching-sync/burry',
-            'cachingsync': 'vendor/backbone-caching-sync/backbone.cachingsync'
+            'cachingsync': 'vendor/backbone-caching-sync/backbone.cachingsync',
+            'highcharts-theme': 'vendor/highcharts/themes/gray'
+
       },
 
       // Sets the configuration for your third party scripts that are not AMD compatible
       shim: {
 
             'backbone': {
-                  'deps': [ 'underscore', 'jquery' ],
+                  'deps': ['underscore', 'jquery'],
                   'exports': 'Backbone'  //attaches 'Backbone' to the window object
             },
             'highcharts': {
+                'exports': 'Highcharts'
+            },
+            'highcharts-theme': {
+                'deps': ['highcharts'],
                 'exports': 'Highcharts'
             }
       }
