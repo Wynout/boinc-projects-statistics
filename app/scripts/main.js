@@ -16,7 +16,8 @@ require.config({
             'highcharts': 'vendor/highcharts/highcharts',
             'burry': 'vendor/backbone-caching-sync/burry',
             'cachingsync': 'vendor/backbone-caching-sync/backbone.cachingsync',
-            'highcharts-theme': 'vendor/highcharts/themes/gray'
+            'highcharts-theme': 'vendor/highcharts/themes/gray',
+            'energize': 'vendor/energize/energize'
 
       },
 
@@ -24,7 +25,7 @@ require.config({
       shim: {
 
             'backbone': {
-                  'deps': ['underscore', 'jquery'],
+                  'deps': ['underscore', 'jquery', 'energize'],
                   'exports': 'Backbone'  //attaches 'Backbone' to the window object
             },
             'highcharts': {
@@ -44,7 +45,8 @@ require.config({
         Models: {},
         Collections: {},
         Views: {},
-        Router: {}
+        Router: {},
+
     };
 
     /*window.vent = _.extend({}, Backbone.Events);
@@ -68,7 +70,8 @@ require(['jquery','backbone','routers/router'], function ($, Backbone, Router) {
             // $.mobile.pushStateEnabled = false;
             $.support.cors = true;
             $.mobile.allowCrossDomainPages = true;
-            $.mobile.buttonMarkup.hoverDelay = 0;
+
+            // $.mobile.buttonMarkup.hoverDelay = 0;
             // https://github.com/davidcalhoun/energize.js
 
             // Prevents all anchor click handling including the addition of active button state and alternate link bluring.
@@ -109,6 +112,7 @@ require(['jquery','backbone','routers/router'], function ($, Backbone, Router) {
             });
         }
     );
+    $(document).bind("touchstart", function (event) {}); // test
 
 
     /*
@@ -130,6 +134,8 @@ require(['jquery','backbone','routers/router'], function ($, Backbone, Router) {
     |--------------------------------------------------------------------------
     */
     $(document).on('pageinit', '[data-role="page"]', function () {
+
+        // do Cache elements
 
         var page = '#' + $(this).attr('id'),
         // Get the filename of the next page that we stored in the data-next attribute
@@ -161,6 +167,10 @@ require(['jquery','backbone','routers/router'], function ($, Backbone, Router) {
         if (prev) {
 
             $(document).on('swiperight', page, function () {
+
+                if ($(this).find('div.zoomed-in')) {
+                    return false;
+                }
 
                 $.mobile.changePage(prev, { transition: 'slide', reverse: true });
             });

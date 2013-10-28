@@ -11,7 +11,7 @@ define(['jquery', 'backbone', 'cachingsync', 'models/TotalUserRacHistoryModel'],
         },
 
         model: TotalUserRacHistoryModel,
-        sync: Backbone.cachingSync(Backbone.sync, 'TotalUserRacHistoryCollection', 3600),
+        sync: Backbone.cachingSync(Backbone.sync, 'TotalUserRacHistoryCollection', 60),
         url: 'http://bps-api.wynout.nl/project/total/user/rac/histories'
 
     });

@@ -12,7 +12,23 @@ function ($, Backbone, Highcharts, DefaultOptions) {
     var ChartView = Backbone.View.extend({
 
         customOptions: {
-            chart: {},
+            chart: {
+                events: {
+                    selection: function (event) {
+
+                        var $chartContainer = $(event.currentTarget.container).parent();
+
+                        if (!event.resetSelection) {
+
+                            $chartContainer.addClass('zoomed-in').removeClass('zoomed-out');
+
+                        } else {
+
+                            $chartContainer.addClass('zoomed-out').removeClass('zoomed-in');
+                        }
+                    }
+                }
+            },
             title: {
                 text: 'Chart Title'
             },
@@ -57,13 +73,16 @@ function ($, Backbone, Highcharts, DefaultOptions) {
             this.options.title.text = 'Sum of User RAC for ' + project.name;
             $('#totalUserRacHistories h1').text(project.name);
 
+            this.options.series[0].pointStart = this.model.get('start_timestamp')*1000;
+
+            if (this.chart===undefined) {
+
+                this.chart = new Highcharts.Chart(this.options);
+            }
 
             // Assume model-based series
-            this.options.series[0].pointStart = this.model.get('start_timestamp')*1000;
-            this.options.series[0].data = this.model.get('data');
-
-            this.chart = new Highcharts.Chart(this.options);
-
+            this.chart.series[0].setData(this.model.get('data'), false);
+            this.chart.redraw();
             return this;
         }
     });

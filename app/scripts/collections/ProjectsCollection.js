@@ -13,7 +13,7 @@ define(['jquery', 'backbone', 'cachingsync', 'models/ProjectModel'], function ($
 
         // Sets the Collection model property to be a Category Model
         model: ProjectModel,
-        sync: Backbone.cachingSync(Backbone.sync, 'ProjectsCollection', 3600),
+        sync: Backbone.cachingSync(Backbone.sync, 'ProjectsCollection', 60),
         url: 'http://bps-api.wynout.nl/projects'
     } );
 

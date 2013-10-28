@@ -8,9 +8,12 @@ define(['highcharts'], function (Highcharts) {
     var defaultOptions = {
 
             chart: {
+                animation: {
+                    duration: 300
+                },
                 renderTo: 'element-id',
-                zoomType: 'x',
-                spacingRight: 20
+                spacingRight: 20,
+                zoomType: 'x'
             },
 
 
