@@ -44,7 +44,7 @@ function ($, Backbone, Highcharts, DefaultOptions) {
             },
             yAxis: {
                 title: {
-                    text: 'Recent granted credits'
+                    text: 'Recent average credits'
                 }
             },
             tooltip: {},
@@ -69,8 +69,9 @@ function ($, Backbone, Highcharts, DefaultOptions) {
         // Renders Chart, this refers to the view
         render: function (model) {
 
-            var project = this.model.get('project');
-            this.options.title.text = 'Sum of User RAC for ' + project.name;
+            var project = this.model.get('project'),
+                title   = 'Sum of User RAC for ' + project.name;
+
             $('#totalUserRacHistories h1').text(project.name);
 
             this.options.series[0].pointStart = this.model.get('start_timestamp')*1000;
@@ -79,6 +80,8 @@ function ($, Backbone, Highcharts, DefaultOptions) {
 
                 this.chart = new Highcharts.Chart(this.options);
             }
+
+            this.chart.setTitle({text: title});
 
             // Assume model-based series
             this.chart.series[0].setData(this.model.get('data'), false);

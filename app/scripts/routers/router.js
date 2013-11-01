@@ -31,14 +31,14 @@ function ($, Backbone, CachingSync, ProjectsCollection,
             App.Views.TotalUserRacHistories = new ChartView({id: 'totalUserRacHistoriesGraph'});
 
 
-            $('#totalUserRacHistories').on('pagehide', function (e, data) {
+            // $('#totalUserRacHistories').on('pagehide', function (e, data) {
 
-                console.log('pagehide complete!');
-            });
+            //     console.log('pagehide complete!');
+            // });
 
             $('#totalUserRacHistories').on('pageshow', function (e, data) {
 
-                console.log('pageshow');
+                // console.log('pageshow');
                 App.Views.TotalUserRacHistories.render();
             });
 

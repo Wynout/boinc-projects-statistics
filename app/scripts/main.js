@@ -71,7 +71,7 @@ require(['jquery','backbone','routers/router'], function ($, Backbone, Router) {
             $.support.cors = true;
             $.mobile.allowCrossDomainPages = true;
 
-            // $.mobile.buttonMarkup.hoverDelay = 0;
+            $.mobile.buttonMarkup.hoverDelay = 0;
             // https://github.com/davidcalhoun/energize.js
 
             // Prevents all anchor click handling including the addition of active button state and alternate link bluring.
@@ -117,14 +117,12 @@ require(['jquery','backbone','routers/router'], function ($, Backbone, Router) {
 
     /*
     |--------------------------------------------------------------------------
-    | Swipe                                                 app/scripts/main.js
+    | Instantiates a new Backbone.js Router                 app/scripts/main.js
     |--------------------------------------------------------------------------
     */
     require([ 'jquerymobile' ], function () {
 
-        // Instantiates a new Backbone.js Router
         App.router =  new Router();
-        // this.router = new Router();
     });
 
 
@@ -133,56 +131,60 @@ require(['jquery','backbone','routers/router'], function ($, Backbone, Router) {
     | Swipe                                                 app/scripts/main.js
     |--------------------------------------------------------------------------
     */
-    $(document).on('pageinit', '[data-role="page"]', function () {
+    // $(document).on('pageinit', '[data-role="page"]', function () {
 
-        // do Cache elements
+    //     // do Cache elements
+    //     var $this = $(this);
 
-        var page = '#' + $(this).attr('id'),
-        // Get the filename of the next page that we stored in the data-next attribute
-        next = $(this).jqmData('next'),
-        // Get the filename of the previous page that we stored in the data-prev attribute
-        prev = $(this).jqmData('prev');
 
-        // Check if we did set the data-next attribute
-        if (next) {
+    //     var page = '#' + $this.attr('id'),
+    //     // Get the filename of the next page that we stored in the data-next attribute
+    //     next = $this.jqmData('next'),
+    //     // Get the filename of the previous page that we stored in the data-prev attribute
+    //     prev = $this.jqmData('prev');
 
-            // Prefetch the next page
-            $.mobile.loadPage(next);
-            // Navigate to next page on swipe left
-            $(document).on('swipeleft', page, function () {
+    //     // Check if we did set the data-next attribute
+    //     if (next) {
 
-                $.mobile.changePage(next, {transition: 'slide'});
-            });
-            // Navigate to next page when the 'next' button is clicked
-            $('.control .next', page).on('click', function () {
-                $.mobile.changePage(next , {transition: 'slide'});
-            });
-        }
-        // Disable the 'next' button if there is no next page
-        else {
+    //         // Prefetch the next page
+    //         $.mobile.loadPage(next);
+    //         // Navigate to next page on swipe left
+    //         $(document).on('swipeleft', page, function () {
 
-            $('.control .next', page).addClass('ui-disabled');
-        }
-        // The same for the previous page (we set data-dom-cache='true' so there is no need to prefetch)
-        if (prev) {
+    //             $.mobile.changePage(next, {transition: 'slide'});
+    //         });
+    //         // Navigate to next page when the 'next' button is clicked
+    //         $('.control .next', page).on('click', function () {
+    //             $.mobile.changePage(next , {transition: 'slide'});
+    //         });
+    //     }
+    //     // Disable the 'next' button if there is no next page
+    //     else {
 
-            $(document).on('swiperight', page, function () {
+    //         $('.control .next', page).addClass('ui-disabled');
+    //     }
+    //     // The same for the previous page (we set data-dom-cache='true' so there is no need to prefetch)
+    //     if (prev) {
 
-                if ($(this).find('div.zoomed-in')) {
-                    return false;
-                }
+    //         $(document).on('swiperight', page, function (event) {
 
-                $.mobile.changePage(prev, { transition: 'slide', reverse: true });
-            });
-            $('.control .prev', page).on('click', function () {
+    //             if ($this.find('div.zoomed-in').length>0) {
 
-                $.mobile.changePage(prev, { transition: 'slide', reverse: true });
-            });
-        }
-        else {
-           $('.control .prev', page).addClass('ui-disabled');
-        }
-    });
+    //                 console.log('div.zoomed-in');
+    //                 return false;
+    //             }
+
+    //             $.mobile.changePage(prev, {transition: 'slide', reverse: true});
+    //         });
+    //         $('.control .prev', page).on('click', function () {
+
+    //             $.mobile.changePage(prev, {transition: 'slide', reverse: true});
+    //         });
+    //     }
+    //     else {
+    //        $('.control .prev', page).addClass('ui-disabled');
+    //     }
+    // });
 
 
 });
