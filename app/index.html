@@ -10,32 +10,9 @@
 </head>
 <body>
 
-	<div id="projects" data-role="page" data-title="Projects" data-theme="a">
-		<div data-role="header">
-			<h1>BOINC Index</h1>
-		</div><!-- /header -->
-		<div data-role="content">
-			<h2>Select a Project Below:</h2>
-			<ul data-role="listview" data-autodividers="true" data-inset="true"></ul>
-		</div><!-- /content -->
-	</div>
+	<div id="projects" data-role="page" data-title="Projects" data-dom-cache="true" data-theme="a"></div>
 
-	<div id="totalUserRacHistories" data-role="page" data-title="Total User RAC Histories" data-prev="#projects"  data-theme="a">
-		<div data-role="header">
-			<a href="#" data-icon="back" data-rel="back" data-direction="reverse" data-transition="slide">Back</a>
-			<h1><!-- Project.name --></h1>
-		</div><!-- /header -->
-		<div data-role="content">
-			<div id="totalUserRacHistoriesGraph" class="chart zoomed-out"></div>
-		</div><!-- /content -->
-	</div>
-
-	<!-- Underscore Template that is used to display all of the Project Models -->
-	<script id="projectItems" type="text/template">
-	<% _.each( collection.toJSON(), function (project, index) { %>
-		<li><a href="#project/<%= project.id %>/total/user/rac/history"><%= project.name %></a></li>
-	<% }); %>
-	</script>
+	<div id="total-rac" data-role="page" data-title="Total User RAC Histories" data-prev="#projects"  data-theme="a"></div>
 
 </body>
 </html>

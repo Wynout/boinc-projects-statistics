@@ -5,20 +5,23 @@
 */
 require.config({
 
-      // 3rd party script alias names (Easier to type 'jquery' than 'vendor/jquery-1.8.2.min')
+      // 3rd party script alias names
       paths: {
 
+            // App Config
+            'config': 'config',
             // Core Libraries
+            'text': 'vendor/requirejs/text',
+            'domReady': 'vendor/requirejs/domReady',
             'jquery': 'vendor/jquery/jquery',
             'jquerymobile': 'vendor/jquery-mobile/jquery.mobile-1.3.2',
             'underscore': 'vendor/lodash/lodash',
             'backbone': 'vendor/backbone-amd/backbone',
-            'highcharts': 'vendor/highcharts/highcharts',
             'burry': 'vendor/backbone-caching-sync/burry',
             'cachingsync': 'vendor/backbone-caching-sync/backbone.cachingsync',
-            'highcharts-theme': 'vendor/highcharts/themes/gray',
-            'energize': 'vendor/energize/energize'
-
+            'energize': 'vendor/energize/energize',
+            'highstock': 'vendor/highstock/highstock',
+            'highstock-theme': 'vendor/highstock/themes/gray'
       },
 
       // Sets the configuration for your third party scripts that are not AMD compatible
@@ -28,11 +31,11 @@ require.config({
                   'deps': ['underscore', 'jquery', 'energize'],
                   'exports': 'Backbone'  //attaches 'Backbone' to the window object
             },
-            'highcharts': {
+            'highstock': {
                 'exports': 'Highcharts'
             },
-            'highcharts-theme': {
-                'deps': ['highcharts'],
+            'highstock-theme': {
+                'deps': ['highstock'],
                 'exports': 'Highcharts'
             }
       }
@@ -110,9 +113,25 @@ require(['jquery','backbone','routers/router'], function ($, Backbone, Router) {
                 // window.history.back();
                 // return false;
             });
+
+            $(document).on('pagebeforecreate', '[data-role="page"]', function () {
+
+                setTimeout(function () {
+
+                    $.mobile.loading('show');
+                }, 1);
+            });
+
+            $(document).on('pageshow', '[data-role="page"]', function () {
+
+                setTimeout(function () {
+
+                    $.mobile.loading('hide');
+                }, 300);
+            });
+
         }
     );
-    $(document).bind("touchstart", function (event) {}); // test
 
 
     /*

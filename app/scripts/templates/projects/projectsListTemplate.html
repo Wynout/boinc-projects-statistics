@@ -1,0 +1,5 @@
+<ul data-role="listview" data-autodividers="true" data-inset="true">
+<% _.each(collection.toJSON(), function (project, index) { %>
+	<li><a href="#project:<%= project.id %>/total/rac"><%= project.name %></a></li>
+<% }); %>
+</ul>

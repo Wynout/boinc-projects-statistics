@@ -3,11 +3,14 @@
 | Project Model                          app/scripts/models/ProjectModel.js
 |--------------------------------------------------------------------------
 */
-define(['jquery', 'backbone'], function ($, Backbone) {
+define([
+	'jquery',
+	'backbone',
+	'config'
+], function ($, Backbone, Config) {
 
-    var ProjectModel = Backbone.Model.extend({
+    return Backbone.Model.extend({
 
-		urlRoot: 'http://bps-api.wynout.nl/projects'
+		urlRoot: 'http://' + Config.api.domain + '/projects'
     });
-    return ProjectModel;
 });

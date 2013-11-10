@@ -1,13 +1,15 @@
 /*
 |--------------------------------------------------------------------------
-| TotalUserRacHistory Chart View             app/scripts/views/ChartView.js
+| Chart View                                 app/scripts/views/ChartView.js
 |--------------------------------------------------------------------------
 */
-define(['jquery', 'backbone', 'highcharts',
+define([
+    'jquery',
+    'backbone',
+    'highcharts',
     'charts/timeSeriesZoomableDefaultOptions',
     'highcharts-theme'
-    ],
-function ($, Backbone, Highcharts, DefaultOptions) {
+], function ($, Backbone, Highcharts, DefaultOptions) {
 
     var ChartView = Backbone.View.extend({
 
@@ -39,7 +41,7 @@ function ($, Backbone, Highcharts, DefaultOptions) {
             },
             xAxis: {
                 title: {
-                    // text: 'text'
+                    text: 'text'
                 }
             },
             yAxis: {
@@ -50,41 +52,55 @@ function ($, Backbone, Highcharts, DefaultOptions) {
             tooltip: {},
             legend: {},
             plotOptions: {},
-            series: [{
-                type: 'area',
-                name: 'credits',
-            }]
+            series: []
         },
 
-        // The View Constructor
         initialize: function (options) {
 
             this.options = $.extend(true, DefaultOptions, this.customOptions); // DefaultOptions
             this.options.chart.renderTo = this.$el.attr('id');
-
             // this.collection.on('add', this.render, this)
         },
 
 
-        // Renders Chart, this refers to the view
         render: function (model) {
 
-            var project = this.model.get('project'),
-                title   = 'Sum of User RAC for ' + project.name;
-
-            $('#totalUserRacHistories h1').text(project.name);
-
-            this.options.series[0].pointStart = this.model.get('start_timestamp')*1000;
+            var self = this;
 
             if (this.chart===undefined) {
 
                 this.chart = new Highcharts.Chart(this.options);
             }
 
+            while (this.chart.series.length > 0) {
+                this.chart.series[0].remove(true);
+            }
+
+            // var project = this.model.get('project'),
+                title   = 'Sum of User RAC for ' + 'project.name';
+
+            $('#totalUserRacHistories h1').text('project.name');
+
+
             this.chart.setTitle({text: title});
 
-            // Assume model-based series
-            this.chart.series[0].setData(this.model.get('data'), false);
+            // Assume collection-based series
+            _.each(this.collection.models, function (model, index) {
+
+                var user = model.get('user');
+                var team = model.get('team');
+                self.chart.addSeries({
+                    name: user.name + '@' + team.name,
+                    pointStart: model.get('start_timestamp')*1000,
+                    pointInterval: 24*3600*1000,
+                    data: model.get('rac'),
+                    marker: {
+                        radius: 2
+                    }
+                }, false);
+
+
+            });
             this.chart.redraw();
             return this;
         }

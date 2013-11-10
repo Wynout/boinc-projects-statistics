@@ -3,19 +3,18 @@
 | Projects Collection         app/scripts/collections/ProjectsCollection.js
 |--------------------------------------------------------------------------
 */
-define(['jquery', 'backbone', 'cachingsync', 'models/ProjectModel'], function ($, Backbone, CachingSync, ProjectModel) {
+define([
+	'jquery',
+	'backbone',
+	'config',
+	'cachingsync',
+	'models/ProjectModel'
+], function ($, Backbone, Config, CachingSync, ProjectModel) {
 
-    // Extends Backbone.Router
-    var Collection = Backbone.Collection.extend( {
+    return Backbone.Collection.extend( {
 
-        initialize: function (models, options) {
-        },
-
-        // Sets the Collection model property to be a Category Model
         model: ProjectModel,
-        sync: Backbone.cachingSync(Backbone.sync, 'ProjectsCollection', 60),
-        url: 'http://bps-api.wynout.nl/projects'
+        sync: Backbone.cachingSync(Backbone.sync, 'ProjectsCollection'),
+        url: 'http://' + Config.api.domain + '/projects'
     } );
-
-    return Collection;
 });
