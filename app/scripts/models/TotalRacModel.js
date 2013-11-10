@@ -12,6 +12,8 @@ define([
     return Backbone.Model.extend({
 
 		urlRoot: 'http://' + Config.api.domain + '/project/total/user/rac/histories',
+
+
 		parse: function (response, options) {
 
 			return response;

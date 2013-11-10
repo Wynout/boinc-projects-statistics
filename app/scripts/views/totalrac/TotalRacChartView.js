@@ -1,6 +1,6 @@
 /*
 |--------------------------------------------------------------------------
-| TotalRac View                           app/scripts/views/TotalRacView.js
+| TotalRac View                  app/scripts/views/totalrac/TotalRacView.js
 |--------------------------------------------------------------------------
 */
 define([

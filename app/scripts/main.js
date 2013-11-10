@@ -42,22 +42,33 @@ require.config({
 });
 
 
-(function() {
+/*
+|--------------------------------------------------------------------------
+| Global App Namespacing                                app/scripts/main.js
+|--------------------------------------------------------------------------
+*/
+(function () {
 
     window.App = {
         Models: {},
         Collections: {},
         Views: {},
         Router: {},
-
+        Events: {}
     };
-
-    /*window.vent = _.extend({}, Backbone.Events);
-    window.template = function(id) {
-        return _.template( $('#' + id).html() );
-    };*/
-
 })();
+
+
+/*
+|--------------------------------------------------------------------------
+| Broadcast Publish Subscribe                           app/scripts/main.js
+|--------------------------------------------------------------------------
+*/
+require(['backbone'], function (Backbone) {
+
+    App.vent = _.extend({}, Backbone.Events);
+});
+
 
 /*
 |--------------------------------------------------------------------------

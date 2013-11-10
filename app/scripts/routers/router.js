@@ -14,10 +14,9 @@ define([
     '../models/TotalRacModel',
     '../collections/TotalRacCollection',
     '../collections/TeamMemberRacCollection',
-    '../views/totalrac/TotalRacView'
-    ],
-
-function (
+    '../views/totalrac/TotalRacView',
+    '../views/teammemberrac/TeamMemberRacView'
+], function (
     $,
     Backbone,
     CachingSync,
@@ -25,25 +24,25 @@ function (
     ProjectView,
     TotalRacModel,
     TotalRacCollection,
-    ActiveTeamMemberRacHistoriesCollection,
-    TotalRacView
+    TeamMemberRacCollection,
+    TotalRacView,
+    TeamMemberRacView
     ) {
 
 
     var Router = Backbone.Router.extend( {
 
-        // The Router constructor
         initialize: function() {
 
-            // Instantiates a new Projects List View
             App.Collections.Projects = new ProjectsCollection();
             App.Collections.TotalRac = new TotalRacCollection();
+            App.Collections.TeamMemberRacCollection = new TeamMemberRacCollection();
 
             App.Models.TotalRac = new TotalRacModel();
 
-            App.Collections.ActiveTeamMemberRacHistories = new ActiveTeamMemberRacHistoriesCollection();
             App.Views.Projects = new ProjectView({collection: App.Collections.Projects});
             App.Views.TotalRac = new TotalRacView();
+            App.Views.TeamMemberRac = new TeamMemberRacView();
 
             $('#total-rac').on('pageshow', function (e, data) {
 
@@ -55,97 +54,44 @@ function (
         },
 
 
-        // Backbone Routes
         routes: {
-
             '': 'projects',
             'projects': 'projects',
             'project/:id': 'project',
-            // 'project/:id/total/user/rac/history/page:(:page)': 'totalUserRacHistories',
             'project:(:projectId)/total/rac': 'projectTotalRac',
             'projects/total/rac/page:(:page)': 'projectsTotalRac',
-
-            'team/rac/project::projectId/team:(:teamId)/user:(:userId)/page:(:page)': 'teamRac'
+            'team/rac/project::projectId/team:(:teamId)/user:(:userId)/page:(:page)': 'teamMemberRac'
         },
 
 
         projectTotalRac: function (projectId) {
 
-            App.Models.TotalRac.id = projectId;
-            App.Models.TotalRac.fetch({
-                success: function () {
-
-                    App.Views.TotalRac.model = App.Models.TotalRac;
-                    App.Views.TotalRac.page = null;
-                    $.mobile.changePage('#total-rac', {reverse: false, changeHash: true});
-                }
-            }).always(function () {
-
-            });
+            App.vent.trigger('projectTotalRac:showSingle', projectId);
         },
 
 
         projectsTotalRac: function (page) {
 
-            page = (page===null || page===undefined) ? 1 : page;
-
-
-            App.Collections.TotalRac.id = page;
-            App.Collections.TotalRac.fetch({data: {page: page}}).then(function (response) {
-
-                if (response[0]) {
-                    response = response[0];
-                }
-
-                App.Views.TotalRac.model = null;
-                App.Views.TotalRac.page  = response;
-                // App.Views.TotalRac.render();
-                $.mobile.changePage('#total-rac', {reverse: false, changeHash: true});
-
-            }, function (error) {
-
-                console.log(error);
-            });
+            App.vent.trigger('projectTotalRac:showAll', page);
         },
 
 
         // Chart #team/rac/project:1/team:81/user:13479/page:1
-        teamRac: function (projectId, teamId, userId, page) {
+        teamMemberRac: function (projectId, teamId, userId, page) {
 
-            console.log(arguments);
-            // You have to specify {add: true} and your pagination arguments in collection.fetch call. It will append to collection instead of reseting its contents.
-            // collection.fetch({data: {page: 3}, add: true})
-            // Then simply listen to collection's add event and append item to your view.
-            // return;
-
-            var options = {data: {teamid: teamId, userid: userId, page: page}};
-            App.Collections.ActiveTeamMemberRacHistories.id = projectId;
-            App.Collections.ActiveTeamMemberRacHistories
-                .fetch(options).then(function () {
-
-                    console.log(App.Collections.ActiveTeamMemberRacHistories);
-                // App.Views.TotalRac.model = App.Collections.TotalRac.get(id);
-                // $.mobile.changePage('#total-rac', {reverse: false, changeHash: true});
-
-            }, function (error) {
-
-                console.log(error);
-            });
-        },
-
-
-        projects: function() {
-
-            App.Collections.Projects.fetch().then(function () {
-
-                App.Views.Projects.render();
-            });
+            App.vent.trigger('teamMemberRac:show', projectId, teamId, userId, page);
         },
 
 
         project: function (id) {
 
-            console.log(id);
+            App.vent.trigger('projects:showSingle');
+        },
+
+
+        projects: function() {
+
+            App.vent.trigger('projects:showAll');
         }
 
     });

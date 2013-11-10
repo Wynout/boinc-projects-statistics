@@ -23,7 +23,7 @@ define([
 		parse: function (response, options) {
 
 			this.pagination = response.pagination;
-			return response.paginated;
+			return response.results;
 		}
 
     });

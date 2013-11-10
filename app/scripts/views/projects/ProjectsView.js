@@ -16,6 +16,28 @@ define([
 
         el: $('#projects'),
 
+
+        initialize: function () {
+
+            App.vent.on('projects:showAll', this.showAll, this);
+        },
+
+
+        showSingle: function (projectId) {
+
+            var self = this;
+        },
+
+
+        showAll: function () {
+
+            App.Collections.Projects.fetch().then(function () {
+
+                App.Views.Projects.render();
+            });
+        },
+
+
         render: function () {
 
             this.$el.html(projectsTemplate);
