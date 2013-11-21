@@ -1,78 +1,55 @@
 /*
 |--------------------------------------------------------------------------
-| Total Rac View                 app/scripts/views/totalrac/TotalRacView.js
+|
 |--------------------------------------------------------------------------
 */
 define([
     'jquery',
     'backbone',
-    'views/totalrac/TotalRacChartView',
-    'text!templates/totalrac/TotalRacView.html'
-], function ($, Backbone, TotalRacChartView, totalRacTemplate) {
-
-    return Backbone.View.extend({
-
-        el: $('#total-rac'),
-
-        initialize: function () {
-
-            App.vent.on('projectTotalRac:showSingle', this.showSingle, this);
-            App.vent.on('projectTotalRac:showAll', this.showAll, this);
-        },
+    'highstock',
+    'views/BaseChartView',
+    // 'highstock-theme'
+    'models/TotalRacModel',
+    'collections/TotalRacCollection',
+], function ($, Backbone, Highstock, BaseChartView, TotalRacModel, TotalRacCollection) {
 
 
-        showSingle: function (projectId) {
+    /**
+     * Helper extension for accessing methods in the parent object
+     * @example this._super('parentMethod')
+     * @link http://forrst.com/posts/Backbone_js_super_function-4co
+     */
+    Backbone.View.prototype._super = function (method) {
 
-            var self = this;
-            App.Models.TotalRac.id = projectId;
-            App.Models.TotalRac.fetch({
-                success: function () {
-
-                    self.model = App.Models.TotalRac;
-                    self.page = null;
-                    $.mobile.changePage('#total-rac', {reverse: false, changeHash: true});
-                }
-            }).always(function () {
-
-            });
-        },
+        return this.constructor.__super__[method].apply(this, _.rest(arguments));
+    };
 
 
-        showAll: function (page) {
+    var TotalRacChartView = BaseChartView.extend({
 
-            page = (page===null || page===undefined) ? 1 : page;
+        // options, problem extending?
+        initialize: function (options) {
 
-            var self = this;
-            App.Collections.TotalRac.id = page;
-            App.Collections.TotalRac.fetch({data: {page: page}}).then(function (response) {
+            console.log('TotalRacChartView argument options =');
+            console.log(options);
+            console.log(options.chart.renderTo);
 
-                if (response[0]) {
-                    response = response[0];
-                }
+            BaseChartView.prototype.initialize.call(this);
 
-                self.model = null;
-                self.page  = response;
-                $.mobile.changePage('#total-rac', {reverse: false, changeHash: true});
-
-            }, function (error) {
-
-                console.log(error);
-            });
-        },
+            // this._super('initialize');
+            this.options.chart.renderTo = options.chart.renderTo;
 
 
-        render: function () {
+            this.model      = new TotalRacModel();
+            this.collection = new TotalRacCollection();
+            // this._super('initialize', options);
 
-            this.$el.html(totalRacTemplate);
-
-            App.Views.TotalRacChart = new TotalRacChartView({id: 'total-rac-chart'});
-            App.Views.TotalRacChart.model = this.model;
-            App.Views.TotalRacChart.page  = this.page;
-
-            this.$el.trigger('pagecreate');
-            App.Views.TotalRacChart.render();
-
-            return this;
         }
+
     });
+
+
+
+    return TotalRacChartView;
+
 });

@@ -7,23 +7,22 @@ define([
     'jquery',
     'backbone',
     'cachingsync',
+    'highstock-theme',
 
     '../collections/ProjectsCollection',
     '../views/projects/ProjectsView',
 
-    '../models/TotalRacModel',
-    '../collections/TotalRacCollection',
     '../collections/TeamMemberRacCollection',
     '../views/totalrac/TotalRacView',
     '../views/teammemberrac/TeamMemberRacView'
+
 ], function (
     $,
     Backbone,
     CachingSync,
+    HighstockTheme,
     ProjectsCollection,
     ProjectView,
-    TotalRacModel,
-    TotalRacCollection,
     TeamMemberRacCollection,
     TotalRacView,
     TeamMemberRacView
@@ -34,20 +33,15 @@ define([
 
         initialize: function() {
 
+            // App.Models.TotalRac = new TotalRacModel();
+
             App.Collections.Projects = new ProjectsCollection();
-            App.Collections.TotalRac = new TotalRacCollection();
+            // App.Collections.TotalRac = new TotalRacCollection();
             App.Collections.TeamMemberRacCollection = new TeamMemberRacCollection();
 
-            App.Models.TotalRac = new TotalRacModel();
-
             App.Views.Projects = new ProjectView({collection: App.Collections.Projects});
-            App.Views.TotalRac = new TotalRacView();
+            // App.Views.TotalRac = new TotalRacView();
             App.Views.TeamMemberRac = new TeamMemberRacView();
-
-            $('#total-rac').on('pageshow', function (e, data) {
-
-                App.Views.TotalRac.render();
-            });
 
             // Tells Backbone to start watching for hashchange events
             Backbone.history.start();
@@ -66,13 +60,35 @@ define([
 
         projectTotalRac: function (projectId) {
 
-            App.vent.trigger('projectTotalRac:showSingle', projectId);
+            var pageId = 'project-total-rac';
+            console.log(App.Views.ProjectTotalRac);
+            if (App.Views.ProjectTotalRac===null || App.Views.ProjectTotalRac===undefined) {
+
+                App.Views.ProjectTotalRac = new TotalRacView({
+                    el: $('#' + pageId),
+                    chart: {
+                        renderTo:'project-total-rac-chart'
+                    }
+                });
+            }
+            App.vent.trigger(pageId + ':showSingle', projectId);
         },
 
 
         projectsTotalRac: function (page) {
 
-            App.vent.trigger('projectTotalRac:showAll', page);
+            var pageId = 'projects-total-rac';
+            console.log(App.Views.ProjectsTotalRac);
+            if (App.Views.ProjectsTotalRac===null || App.Views.ProjectsTotalRac===undefined) {
+
+                App.Views.ProjectsTotalRac = new TotalRacView({
+                    el: $('#' + pageId),
+                    chart: {
+                        renderTo:'projects-total-rac-chart'
+                    }
+                });
+            }
+            App.vent.trigger(pageId + ':showAll', page);
         },
 
 

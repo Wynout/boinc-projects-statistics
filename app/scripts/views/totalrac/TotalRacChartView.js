@@ -70,6 +70,8 @@ define([
                 this.chart = new Highcharts.StockChart(this.options);
             }
 
+            this.chart.showLoading();
+
             while (this.chart.series.length > 0) {
 
                 this.chart.series[0].remove(true);
@@ -111,6 +113,7 @@ define([
 
             this.chart.setTitle({text: title});
             this.chart.redraw();
+            this.chart.hideLoading();
             return this;
         }
     });

@@ -20,7 +20,7 @@ require.config({
             'burry': 'vendor/backbone-caching-sync/burry',
             'cachingsync': 'vendor/backbone-caching-sync/backbone.cachingsync',
             'energize': 'vendor/energize/energize',
-            'highstock': 'vendor/highstock/highstock',
+            'highstock': 'vendor/highstock/highstock.src',
             'highstock-theme': 'vendor/highstock/themes/gray'
       },
 
@@ -54,9 +54,10 @@ require.config({
         Collections: {},
         Views: {},
         Router: {},
-        Events: {}
+        vent: {}
     };
 })();
+
 
 
 /*
@@ -67,6 +68,16 @@ require.config({
 require(['backbone'], function (Backbone) {
 
     App.vent = _.extend({}, Backbone.Events);
+
+    $(window).resize(function () {
+
+        clearTimeout(this.id);
+        this.id = setTimeout(function () {
+
+            App.vent.trigger('resize:'+$.mobile.activePage.attr('id'));
+        }, 300);
+    });
+
 });
 
 
@@ -101,7 +112,7 @@ require(['jquery','backbone','routers/router'], function ($, Backbone, Router) {
             var defaults = $.mobile.changePage.defaults;
             $(document).on('click', 'a[data-rel="back"]', function (event) {
 
-                // event.preventDefault();
+
                 var $this = $(this);
 
                 if ($this.attr('data-transition')) {
@@ -121,8 +132,6 @@ require(['jquery','backbone','routers/router'], function ($, Backbone, Router) {
                 }
 
                 $.mobile.changePage($this.attr('href'));
-                // window.history.back();
-                // return false;
             });
 
             $(document).on('pagebeforecreate', '[data-role="page"]', function () {
@@ -130,7 +139,7 @@ require(['jquery','backbone','routers/router'], function ($, Backbone, Router) {
                 setTimeout(function () {
 
                     $.mobile.loading('show');
-                }, 1);
+                }, 0);
             });
 
             $(document).on('pageshow', '[data-role="page"]', function () {
@@ -141,6 +150,9 @@ require(['jquery','backbone','routers/router'], function ($, Backbone, Router) {
                 }, 300);
             });
 
+            App.isDesktop = !('ontouchstart' in window) // works on most browsers
+                        || !('onmsgesturechange' in window); // works on ie10
+
         }
     );
 
@@ -150,7 +162,7 @@ require(['jquery','backbone','routers/router'], function ($, Backbone, Router) {
     | Instantiates a new Backbone.js Router                 app/scripts/main.js
     |--------------------------------------------------------------------------
     */
-    require([ 'jquerymobile' ], function () {
+    require(['jquerymobile'], function () {
 
         App.router =  new Router();
     });
