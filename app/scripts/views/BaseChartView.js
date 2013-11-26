@@ -290,7 +290,9 @@ define(['jquery', 'backbone'], function ($, Backbone) {
         getViewportSize: function () {
 
             var $header      = $.mobile.activePage.find('div[data-role="header"]').first(),
+                $footer      = $.mobile.activePage.find('div[data-role="footer"]').first(),
                 headerHeight = $header.length>0 ? $header.outerHeight(true) : 0,
+                footerHeight = $footer.length>0 ? $footer.outerHeight(true) : 0,
                 width        = $.mobile.activePage.outerWidth(true);
 
             if (App.isDesktop && (window.outerWidth - width)<=20 ) {
@@ -299,7 +301,7 @@ define(['jquery', 'backbone'], function ($, Backbone) {
             }
 
             return {
-                height: $(window).height() - headerHeight,
+                height: $(window).height() - headerHeight - footerHeight,
                 width: width
             };
         },
