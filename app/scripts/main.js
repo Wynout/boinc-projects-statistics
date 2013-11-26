@@ -21,7 +21,8 @@ require.config({
             'cachingsync': 'vendor/backbone-caching-sync/backbone.cachingsync',
             'energize': 'vendor/energize/energize',
             'highstock': 'vendor/highstock/highstock.src',
-            'highstock-theme': 'vendor/highstock/themes/gray'
+            'highstock-theme': 'vendor/highstock/themes/gray',
+            'mustache': 'vendor/mustache/mustache'
       },
 
       // Sets the configuration for your third party scripts that are not AMD compatible
