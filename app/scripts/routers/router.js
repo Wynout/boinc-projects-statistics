@@ -13,7 +13,7 @@ define([
     '../views/projects/ProjectsView',
 
     '../collections/TeamMemberRacCollection',
-    '../views/totalrac/TotalRacView',
+    '../views/totalrac/TotalRacChartView',
     '../views/teammemberrac/TeamMemberRacView'
 
 ], function (
@@ -43,7 +43,7 @@ define([
             // App.Views.TotalRac = new TotalRacView();
             App.Views.TeamMemberRac = new TeamMemberRacView();
 
-            // Tells Backbone to start watching for hashchange events
+            // Start watching for hashchange events
             Backbone.history.start();
         },
 
@@ -61,7 +61,6 @@ define([
         projectTotalRac: function (projectId) {
 
             var pageId = 'project-total-rac';
-            console.log(App.Views.ProjectTotalRac);
             if (App.Views.ProjectTotalRac===null || App.Views.ProjectTotalRac===undefined) {
 
                 App.Views.ProjectTotalRac = new TotalRacView({
@@ -77,14 +76,13 @@ define([
 
         projectsTotalRac: function (page) {
 
-            var pageId = 'projects-total-rac';
-            console.log(App.Views.ProjectsTotalRac);
-            if (App.Views.ProjectsTotalRac===null || App.Views.ProjectsTotalRac===undefined) {
+            var pageId = 'project-total-rac';
+            if (App.Views.ProjectTotalRac===null || App.Views.ProjectTotalRac===undefined) {
 
-                App.Views.ProjectsTotalRac = new TotalRacView({
+                App.Views.ProjectTotalRac = new TotalRacView({
                     el: $('#' + pageId),
                     chart: {
-                        renderTo:'projects-total-rac-chart'
+                        renderTo:'project-total-rac-chart'
                     }
                 });
             }

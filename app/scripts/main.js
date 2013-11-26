@@ -105,8 +105,8 @@ require(['jquery','backbone','routers/router'], function ($, Backbone, Router) {
             // Disabling this will prevent jQuery Mobile from handling hash changes
             $.mobile.hashListeningEnabled = false;
 
-            $.mobile.changePage.defaults.transition = 'slide';
-            $.mobile.changePage.defaults.reverse = true;
+            $.mobile.changePage.defaults.transition = 'slidefade';
+            $.mobile.changePage.defaults.reverse    = true;
 
             // Change Page on a[data-rel='back'] elements
             var defaults = $.mobile.changePage.defaults;
