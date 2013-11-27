@@ -153,6 +153,7 @@ define(['jquery', 'backbone'], function ($, Backbone) {
             this.setPageTitle();
             this.bindVents();
 
+            // This event is triggered after the changePage() request has finished loading the page into the DOM and all page transition animations have completed.
             $(document).on('pagechange', function (toPage, options) {
 
                 if (options.toPage.attr('id')===self.pageId) {
@@ -161,6 +162,7 @@ define(['jquery', 'backbone'], function ($, Backbone) {
                 }
             });
 
+            // Triggered on the "fromPage" after the transition animation has completed.
             this.$el.on('pagehide', this.removeSeries.bind(this));
         },
 
@@ -175,10 +177,9 @@ define(['jquery', 'backbone'], function ($, Backbone) {
 
         reflow: function () {
 
-            var viewport;
             if (this.chart) {
 
-                viewport = this.getViewportSize();
+                var viewport = this.getViewportSize();
                 this.chart.setSize(viewport.width, viewport.height, false);
                 this.isReflowed = true;
             }
@@ -189,6 +190,7 @@ define(['jquery', 'backbone'], function ($, Backbone) {
 
             var self      = this;
             this.model.id = projectId;
+
             this.model.fetch({
                 success: function (response) {
 
@@ -214,7 +216,7 @@ define(['jquery', 'backbone'], function ($, Backbone) {
                     response = response[0];
                 }
 
-                // self.pagination = response.pagination;
+                self.pagination = response.pagination;
 
                 self.renderAll();
                 $.mobile.changePage('#' + self.pageId, {reverse: false, changeHash: true});
@@ -228,17 +230,17 @@ define(['jquery', 'backbone'], function ($, Backbone) {
 
         renderSingle: function () {
 
-            var self = this,
-                project = this.model.get('project');
+            var project = this.model.get('project');
 
             if (!this.chart) {
 
                 this.chart = new Highcharts.StockChart(this.options);
             }
-            if (self.isReflowed===false) {
+            if (this.isReflowed===false) {
 
                 this.reflow();
             }
+            this.removeSeries();
 
             this.chart.addSeries({
                 name: project.name ,
@@ -259,10 +261,11 @@ define(['jquery', 'backbone'], function ($, Backbone) {
 
                 this.chart = new Highcharts.StockChart(this.options);
             }
-            if (self.isReflowed===false) {
+            if (this.isReflowed===false) {
 
                 this.reflow();
             }
+            this.removeSeries();
 
             _.each(this.collection.models, function (model, index) {
 
@@ -274,7 +277,49 @@ define(['jquery', 'backbone'], function ($, Backbone) {
                 }, false);
             });
 
+            this.renderPagination();
+
             return this;
+        },
+
+
+        renderPagination: function () {
+
+            if (!this.pagination) {
+
+                return;
+            }
+
+            var $pagination = this.$el.find('.pagination-buttons'),
+                $prev   = $pagination.find('.previous'),
+                $next   = $pagination.find('.next'),
+                hash    = '#' + Backbone.history.fragment,
+                current = this.pagination.currentPage,
+                last    = this.pagination.lastPage,
+                next, prev;
+
+            next = current + 1;
+            next = next>last ? last : next;
+            prev = current - 1;
+            prev = prev<1 ? 1 : prev;
+            $prev.attr('href', hash.replace(/page:([0-9]+)$/, 'page:' + prev));
+            $next.attr('href', hash.replace(/page:([0-9]+)$/, 'page:' + next));
+
+            if (current===1) {
+
+                $prev.addClass('ui-disabled');
+            } else {
+
+                $prev.removeClass('ui-disabled');
+            }
+            if (current===last) {
+
+                $next.addClass('ui-disabled');
+            } else {
+
+                $next.removeClass('ui-disabled');
+            }
+
         },
 
 

@@ -10,8 +10,9 @@ define([
     'views/BaseChartView',
     'models/TotalRacModel',
     'collections/TotalRacCollection',
+    'mustache',
     'text!templates/totalrac/TotalRacChartView.html'
-], function ($, Backbone, Highstock, BaseChartView, TotalRacModel, TotalRacCollection, totalRacChartTemplate) {
+], function ($, Backbone, Highstock, BaseChartView, TotalRacModel, TotalRacCollection, Mustache, totalRacChartTemplate) {
 
 
     /**

@@ -1,1 +1,9 @@
 /* Feel free to use @import. r.js will merge them, when building */
+
+/* Fixed Footer, Pagination */
+.ui-footer-fixed {
+	padding: 3px;
+}
+/*.pagination .ui-btn-inner {
+	width: 110px;
+}*/
