@@ -31,10 +31,11 @@ define([
 
         showAll: function () {
 
-            App.Collections.Projects.fetch().then(function () {
+            // App.Collections.Projects.fetch().then(function () {
 
-                App.Views.Projects.render();
-            });
+                // App.Views.Projects.render();
+            // });
+            this.render();
         },
 
 
@@ -42,7 +43,7 @@ define([
 
             this.$el.html(projectsTemplate);
 
-            var projectsListView = new ProjectsListView({collection: this.collection});
+            var projectsListView = new ProjectsListView({collection: App.Views.Projects.collection});
             projectsListView.render();
 
             this.$el.trigger('pagecreate');

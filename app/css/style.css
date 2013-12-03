@@ -7,3 +7,20 @@
 /*.pagination .ui-btn-inner {
 	width: 110px;
 }*/
+
+
+
+/*div.ui-slider-switch {
+	float: right;
+	margin: 0;
+}*/
+
+
+<ul data-role="listview" data-split-icon="star" data-split-theme="c">
+    <li>
+    <a href="http://shreerangpatwardhan.blogspot.com">Spatial Unlimited</a>
+    <a href="http://shreerangpatwardhan.blogspot.com/p/resume.html"></a>
+   	</li>
+    <li><a href="http://shreerangpatwardhan.blogspot.in/p/code-samples.html">Google Maps API Examples</a> <a href="http://shreerangpatwardhan.blogspot.com/p/resume.html"></a></li>
+    <li><a href="http://shreerangpatwardhan.blogspot.in/p/jquery-mobile.html">Jquery Mobile Examples</a> <a href="http://shreerangpatwardhan.blogspot.com/p/resume.html"></a></li>
+</ul>

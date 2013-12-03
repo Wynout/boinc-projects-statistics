@@ -1,5 +1,14 @@
-<ul data-role="listview" data-autodividers="true" data-inset="true">
+<ul data-role="listview" data-autodividers="true" data-inset="true" data-split-icon="star" data-split-theme="f">
 <% _.each(collection.toJSON(), function (project, index) { %>
-	<li><a href="#project:<%= project.id %>/total/rac"><%= project.name %></a></li>
+	<li>
+		<a href="#project:<%= project.id %>/total/rac"><%= project.name %></a>
+		<a href="#"></a>
+
+	</li>
 <% }); %>
 </ul>
+
+<!-- <select name="flip-3" id="flip-3" data-role="slider" data-theme="a">
+	<option value="no">No</option>
+	<option value="yes">Yes</option>
+</select> -->

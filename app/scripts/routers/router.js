@@ -33,10 +33,8 @@ define([
 
         initialize: function() {
 
-            // App.Models.TotalRac = new TotalRacModel();
-
             App.Collections.Projects = new ProjectsCollection();
-            // App.Collections.TotalRac = new TotalRacCollection();
+
             App.Collections.TeamMemberRacCollection = new TeamMemberRacCollection();
 
             App.Views.Projects = new ProjectView({collection: App.Collections.Projects});
