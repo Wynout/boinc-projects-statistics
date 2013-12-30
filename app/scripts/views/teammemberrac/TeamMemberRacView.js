@@ -11,6 +11,8 @@ define([
 
 ], function ($, Backbone, TotalRacChartView, teamMemberRacTemplate) {
 
+    'use strict';
+
     return Backbone.View.extend({
 
         el: $('#team-member-rac'),

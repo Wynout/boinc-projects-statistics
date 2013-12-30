@@ -12,6 +12,7 @@ define([
 	'bootstrap/Projects'
 ], function ($, Backbone, Config, CachingSync, ProjectModel, bootstrap) {
 
+    'use strict';
 
     var ProjectsCollection = Backbone.Collection.extend({
 

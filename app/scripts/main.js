@@ -50,6 +50,8 @@ require.config({
 */
 (function () {
 
+    'use strict';
+
     window.App = {
         Models: {},
         Collections: {},
@@ -67,6 +69,8 @@ require.config({
 |--------------------------------------------------------------------------
 */
 require(['backbone'], function (Backbone) {
+
+    'use strict';
 
     App.vent = _.extend({}, Backbone.Events);
 
@@ -88,6 +92,8 @@ require(['backbone'], function (Backbone) {
 |--------------------------------------------------------------------------
 */
 require(['jquery','backbone','routers/router'], function ($, Backbone, Router) {
+
+    'use strict';
 
     // Set up the 'mobileinit' handler before requiring jQuery Mobile's module
     $(document).on('mobileinit', function () {
@@ -164,6 +170,8 @@ require(['jquery','backbone','routers/router'], function ($, Backbone, Router) {
     |--------------------------------------------------------------------------
     */
     require(['jquerymobile'], function () {
+
+        'use strict';
 
         App.router =  new Router();
     });

@@ -14,6 +14,7 @@ define([
     'text!templates/totalrac/TotalRacChartView.html'
 ], function ($, Backbone, Highstock, BaseChartView, TotalRacModel, TotalRacCollection, Mustache, totalRacChartTemplate) {
 
+    'use strict';
 
     /**
      * Helper extension for accessing methods in the parent object

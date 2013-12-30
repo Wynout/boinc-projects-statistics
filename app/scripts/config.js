@@ -1,5 +1,7 @@
 define([], function () {
 
+	'use strict';
+
 	return {
 		api: {
 			domain: 'bps-api.wynout.nl'

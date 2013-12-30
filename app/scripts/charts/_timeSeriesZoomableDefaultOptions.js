@@ -5,6 +5,8 @@
 */
 define(['highcharts'], function (Highcharts) {
 
+    'use strict';
+
     var defaultOptions = {
 
             chart: {

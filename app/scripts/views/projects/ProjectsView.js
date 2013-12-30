@@ -12,6 +12,8 @@ define([
     'text!templates/projects/projectsTemplate.html'
 ], function (doc, $, _,  Backbone, ProjectsListView, projectsTemplate) {
 
+    'use strict';
+
     return Backbone.View.extend({
 
         el: $('#projects'),

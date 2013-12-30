@@ -11,6 +11,8 @@ define([
     'models/TotalRacModel'
 ], function ($, Backbone, Config, CachingSync, TotalRacModel) {
 
+    'use strict';
+
     return Backbone.Collection.extend({
 
         model: TotalRacModel,

@@ -9,6 +9,8 @@ define([
 	'config'
 ], function ($, Backbone, Config) {
 
+	'use strict';
+
     return Backbone.Model.extend({
 
 		idAttribute: 'project_id',

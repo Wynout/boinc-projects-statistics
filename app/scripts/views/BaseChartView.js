@@ -5,6 +5,7 @@
 */
 define(['jquery', 'backbone'], function ($, Backbone) {
 
+    'use strict';
 
     /**
      * Helper extension for accessing methods in the parent object

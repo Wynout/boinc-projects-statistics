@@ -5,6 +5,8 @@
 */
 define(function () {
 
+    'use strict';
+
     var projects = [
         {"id":20,"name":"ABC@Home"},
         {"id":4,"name":"Climate Prediction"},

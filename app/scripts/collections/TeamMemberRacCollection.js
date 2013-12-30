@@ -10,6 +10,8 @@ define([
 	'models/ActiveTeamMemberRacModel'
 ], function ($, Backbone, Config, ActiveTeamMemberRacModel) {
 
+	'use strict';
+
     return Backbone.Collection.extend({
 
         model: ActiveTeamMemberRacModel,
